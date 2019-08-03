@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Guess what letter I'm thinking of Wins: (# of times the user has guessed the letter correctly) Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses) Guesses Left: (# of guesses left. This will update) Your
+    Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
+    <h1>The Psychic Game</h1>
+    <script>
+        document.write("Guess what letter I'm thinking of <BR><BR>");
+
+        document.write("Wins:<BR><BR>");
+
+        document.write("Losses:<BR><BR>");
+
+        document.write("Guesses Left:<BR><BR>");
+
+        document.write("Your Guesses so far:<BR><BR>");
+    </script>
+
+    <script>
+        guess = prompt("guess a letter");
+
+        const letters = [
+            `a`,
+            `b`,
+            `c`,
+            `d`,
+            `e`,
+            `f`,
+            `g`,
+            `h`,
+            `i`,
+            `j`,
+            `k`,
+            `l`,
+            `m`,
+            `n`,
+            `o`,
+            `p`,
+            `q`,
+            `r`,
+            `s`,
+            `t`,
+            `u`,
+            `v`,
+            `w`,
+            `x`,
+            `y`,
+            `z`
+        ];
+
+        const yourLetter = Math.random() * 26;
+        const yourLetter2 = Math.round(yourLetter);
+
+        const yourLetter3 = letters[yourLetter2];
+
+        if (guess == yourLetter3) {
+            document.write("Wins:1");
+        } else {
+            document.write("Losses:1");
+        }
+
+        const numberGuesses = guess + 1;
+
+        //Wins = number of times that guess == yourLetter3
+        //Losses = number of times with no wins
+        //Guesses Left. We start with 10 Guesses.
+        //Your guesses so far : guess, guess, guess...
+
+        //const Losses = 10 - Wins;
+
+        //const guessesLeft = 10 - numberGuesses;
+    </script>
+</body>
+
+</html>
