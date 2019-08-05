@@ -63,7 +63,6 @@
 
         let wins = 0;
         let losses = 0;
-        let contestantGuesses = 10;
 
         // This is directly inspired by the RPS code available on Gitlab. We create variables and refer to HTML IDs to make sure we display things in the right place.
 
@@ -90,12 +89,17 @@
                 losses++;
             }
 
+            const guessesLeft = 10 - (wins + losses);
+
+            if (guessesLeft < 0) {
+                alert(`no more guesses`);
+            }
+
             numberWinsText.textContent = "Wins: " + wins;
             numberLossesText.textContent = "Losses: " + losses;
-            numberGuessesText, (textContent = "Guesses left:" + contestantGuesses);
+            numberGuessesText.textContent = "Guesses left:" + guessesLeft;
             constestantGuessesText.textContent =
                 "Your guesses so far: " + userGuess;
-            userGuess;
         };
 
         //Older version with only one dynamic text element
