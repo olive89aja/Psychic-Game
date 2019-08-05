@@ -12,20 +12,21 @@
     <!-- Guess what letter I'm thinking of Wins: (# of times the user has guessed the letter correctly) Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses) Guesses Left: (# of guesses left. This will update) Your
     Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
     <h1>The Psychic Game</h1>
+    <!--Here we choose to attribute an ID to each <p> element because we want to use getelementbyid in Javascript later-->
+    <p><strong>Guess what letter I'm thinking of</strong></p>
+
+    <p id="number-Wins"><strong>Wins:</strong></p>
+
+    <p id="number-Losses"><strong>Losses:</strong></p>
+
+    <p id="number-Guesses"><strong>Guesses Left:</strong></p>
+
+    <p id="contestant-Guesses" onkeydown="keydownFunction()">
+        <strong>Your Guesses so far:</strong>
+    </p>
+
     <script>
-        document.write("Guess what letter I'm thinking of <BR><BR>");
-
-        document.write("Wins:<BR><BR>");
-
-        document.write("Losses:<BR><BR>");
-
-        document.write("Guesses Left:<BR><BR>");
-
-        document.write("Your Guesses so far:<BR><BR>");
-    </script>
-
-    <script>
-        guess = prompt("guess a letter");
+        //We create an array to determine all the possible choices having specified that the user has to guess a letter
 
         const letters = [
             `a`,
@@ -56,18 +57,58 @@
             `z`
         ];
 
-        const yourLetter = Math.random() * 26;
-        const yourLetter2 = Math.round(yourLetter);
+        //We replaced prompt by onkeyup
 
-        const yourLetter3 = letters[yourLetter2];
+        // we initialize wins and losses at 0 and contestantGuesses at 10. It was specified that the contestant would get 10 guesses.
 
-        if (guess == yourLetter3) {
-            document.write("Wins:1");
-        } else {
-            document.write("Losses:1");
-        }
+        let wins = 0;
+        let losses = 0;
+        let contestantGuesses = 10;
 
-        const numberGuesses = guess + 1;
+        // This is directly inspired by the RPS code available on Gitlab. We create variables and refer to HTML IDs to make sure we display things in the right place.
+
+        let numberWinsText = document.getElementById("number-Wins");
+        let numberLossesText = document.getElementById("number-Losses");
+        let numberGuessesText = document.getElementById("number-Guesses");
+        let constestantGuessesText = document.getElementById(
+            "contestant-Guesses"
+        );
+
+        document.onkeyup = function(event) {
+            // Determines which key was pressed.
+            let userGuess = event.key;
+
+            const computerLetter = Math.random() * 26;
+
+            const computerLetter2 = Math.round(computerLetter);
+
+            const computerLetter3 = letters[computerLetter2];
+
+            if (userGuess === computerLetter3) {
+                wins++;
+            } else {
+                losses++;
+            }
+
+            numberWinsText.textContent = "Wins: " + wins;
+            numberLossesText.textContent = "Losses: " + losses;
+            numberGuessesText, (textContent = "Guesses left:" + contestantGuesses);
+            constestantGuessesText.textContent =
+                "Your guesses so far: " + userGuess;
+            userGuess;
+        };
+
+        //Older version with only one dynamic text element
+
+        //const guess = letters[yourLetter2];
+
+        //if (guess == yourLetter3) {
+        //document.getElementById("Wins:1");
+        //} else {
+        //document.getElementById("Losses:1");
+        //}
+
+        //const numberGuesses = guess + 1;
 
         //Wins = number of times that guess == yourLetter3
         //Losses = number of times with no wins
