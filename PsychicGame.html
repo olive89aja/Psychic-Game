@@ -80,7 +80,9 @@
             let buffer = [];
 
             document.addEventListener("keyup", event => {
-                const charList = "abcdefghijklmnopqrstuvwxyz";
+                //The user should type a letter. If the user type another stroke, it removes a guess.
+                //const charList = "abcdefghijklmnopqrstuvwxyz";
+
                 const userGuess = event.key;
 
                 //We need to store all guesses in an array. We use push to complete this action. Otherwise if we only use userGuess,
