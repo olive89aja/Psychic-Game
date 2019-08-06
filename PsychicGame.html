@@ -21,7 +21,7 @@
 
     <p id="number-Guesses"><strong>Guesses Left:</strong></p>
 
-    <p id="contestant-Guesses" onkeydown="keydownFunction()">
+    <p id="contestant-Guesses">
         <strong>Your Guesses so far:</strong>
     </p>
 
@@ -57,12 +57,11 @@
             `z`
         ];
 
-        //We replaced prompt by onkeyup
-
-        // we initialize wins and losses at 0 and contestantGuesses at 10. It was specified that the contestant would get 10 guesses.
+        // we initialize wins and losses at 0 and guessesLeft at 10. It was specified that the contestant would get 10 guesses.
 
         let wins = 0;
         let losses = 0;
+        let guessesLeft = 10;
 
         // This is directly inspired by the RPS code available on Gitlab. We create variables and refer to HTML IDs to make sure we display things in the right place.
 
@@ -73,34 +72,76 @@
             "contestant-Guesses"
         );
 
-        document.onkeyup = function(event) {
-            // Determines which key was pressed.
-            let userGuess = event.key;
+        //Our initial version used a prompt. Now we replaced it by an addEventListener function (). The idea is to collect user input multiple times.
 
-            const computerLetter = Math.random() * 26;
+        document.addEventListener("DOMContentLoaded", () => {
+            //We initialize the buffer variable
 
-            const computerLetter2 = Math.round(computerLetter);
+            let buffer = [];
 
-            const computerLetter3 = letters[computerLetter2];
+            document.addEventListener("keyup", event => {
+                const charList = "abcdefghijklmnopqrstuvwxyz";
+                const userGuess = event.key;
 
-            if (userGuess === computerLetter3) {
-                wins++;
-            } else {
-                losses++;
-            }
+                //We need to store all guesses in an array. We use push to complete this action. Otherwise if we only use userGuess,
+                //we only have the last guess. This is inspired by "How to detect a sequence of keystrokes in Javascript", an article written my Vojislav Grujic
+                //on Medium.
 
-            const guessesLeft = 10 - (wins + losses);
+                buffer.push(userGuess);
 
-            if (guessesLeft < 0) {
-                alert(`no more guesses`);
-            }
+                //We use a random number to determine letters for the computer.
 
-            numberWinsText.textContent = "Wins: " + wins;
-            numberLossesText.textContent = "Losses: " + losses;
-            numberGuessesText.textContent = "Guesses left:" + guessesLeft;
-            constestantGuessesText.textContent =
-                "Your guesses so far: " + userGuess;
-        };
+                const computerLetter = Math.random() * 26;
+
+                const computerLetter2 = Math.round(computerLetter);
+
+                const computerLetter3 = letters[computerLetter2];
+
+                if (userGuess === computerLetter3) {
+                    wins++;
+                } else if (guessesLeft === 0) {
+                    guessesLeft = 9;
+                    losses++;
+                } else {
+                    guessesLeft = guessesLeft - 1;
+                }
+
+                //Not quite getting the result expected for guesses left. They should go to zero then back to ten.
+
+                //const guessesLeft = 10 - (wins + losses);
+
+                //if (guessesLeft < 0) {
+                //guessesLeft++;
+                //}
+
+                numberWinsText.textContent = "Wins: " + wins;
+                numberLossesText.textContent = "Losses: " + losses;
+                numberGuessesText.textContent = "Guesses left:" + guessesLeft;
+                constestantGuessesText.textContent = "Your guesses so far: " + buffer;
+            });
+        });
+
+        //document.onkeyup = function(event) {
+        // Determines which key was pressed.
+        //let userGuess = event.key;
+
+        //const computerLetter = Math.random() * 26;
+
+        // const computerLetter2 = Math.round(computerLetter);
+
+        //const computerLetter3 = letters[computerLetter2];
+
+        //if (userGuess === computerLetter3) {
+        //    wins++;
+        // } else {
+        //    losses++;
+        // }
+
+        //const guessesLeft = 10 - (wins + losses);
+
+        //  if (guessesLeft < 0) {
+        //}
+        //};
 
         //Older version with only one dynamic text element
 
