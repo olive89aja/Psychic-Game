@@ -12,17 +12,18 @@
     <!-- Guess what letter I'm thinking of Wins: (# of times the user has guessed the letter correctly) Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses) Guesses Left: (# of guesses left. This will update) Your
     Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
     <h1>The Psychic Game</h1>
-    <!--Here we choose to attribute an ID to each <p> element because we want to use getelementbyid in Javascript later-->
+    <!--Here we choose to attribute an ID to each <h4> element because we want to use getelementbyid in Javascript later.
+        We chose h4 because the font stays strong while we run Javascript-->
     <p><b>Guess what letter I'm thinking of</b></p>
 
-    <h4 id="number-Wins"><b>Wins:</b></h4>
+    <h4 id="number-Wins">Wins:</h4>
 
-    <h4 id="number-Losses"><b>Losses:</b></h4>
+    <h4 id="number-Losses">Losses:</h4>
 
-    <h4 id="number-Guesses"><b>Guesses Left:</b></h4>
+    <h4 id="number-Guesses">Guesses Left:</h4>
 
     <h4 id="contestant-Guesses">
-        <b>Your Guesses so far:</b>
+        Your Guesses so far:
     </h4>
 
     <script>
@@ -97,24 +98,30 @@
 
                 const computerLetter2 = Math.round(computerLetter);
 
+                //computerLetter3 is equivalent to computer's guess
+
                 const computerLetter3 = letters[computerLetter2];
+
+                //We introduce if statements to properly increment or decrement wins, losses and guessesLeft.
+
+                //Incrementing wins every time the user's guess matches the computer's guess
 
                 if (userGuess === computerLetter3) {
                     wins++;
-                } else if (guessesLeft === 0) {
+                }
+
+                //With this else if statement, we increment losses when there is no guess left and reinitialize guessesLeft.
+                else if (guessesLeft === 0) {
                     guessesLeft = 9;
                     losses++;
-                } else {
+                }
+
+                //decrease guessesLeft by one for every wrong guess
+                else {
                     guessesLeft = guessesLeft - 1;
                 }
 
-                //Not quite getting the result expected for guesses left. They should go to zero then back to ten.
-
-                //const guessesLeft = 10 - (wins + losses);
-
-                //if (guessesLeft < 0) {
-                //guessesLeft++;
-                //}
+                //Live results are printed on screen. We use a string and wins, guessesLeft and buffer, declared earlier.
 
                 numberWinsText.textContent = "Wins: " + wins;
                 numberLossesText.textContent = "Losses: " + losses;
@@ -122,49 +129,6 @@
                 constestantGuessesText.textContent = "Your guesses so far: " + buffer;
             });
         });
-
-        //document.onkeyup = function(event) {
-        // Determines which key was pressed.
-        //let userGuess = event.key;
-
-        //const computerLetter = Math.random() * 26;
-
-        // const computerLetter2 = Math.round(computerLetter);
-
-        //const computerLetter3 = letters[computerLetter2];
-
-        //if (userGuess === computerLetter3) {
-        //    wins++;
-        // } else {
-        //    losses++;
-        // }
-
-        //const guessesLeft = 10 - (wins + losses);
-
-        //  if (guessesLeft < 0) {
-        //}
-        //};
-
-        //Older version with only one dynamic text element
-
-        //const guess = letters[yourLetter2];
-
-        //if (guess == yourLetter3) {
-        //document.getElementById("Wins:1");
-        //} else {
-        //document.getElementById("Losses:1");
-        //}
-
-        //const numberGuesses = guess + 1;
-
-        //Wins = number of times that guess == yourLetter3
-        //Losses = number of times with no wins
-        //Guesses Left. We start with 10 Guesses.
-        //Your guesses so far : guess, guess, guess...
-
-        //const Losses = 10 - Wins;
-
-        //const guessesLeft = 10 - numberGuesses;
     </script>
 </body>
 
